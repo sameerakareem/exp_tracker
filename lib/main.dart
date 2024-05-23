@@ -82,13 +82,14 @@ class _MyAppState extends State<MyApp> {
   }
   void initializeLocalNotifications() {
     const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('ic_launcher.png');
+    AndroidInitializationSettings('@mipmap/ic_launcher');
 
     final InitializationSettings initializationSettings =
     InitializationSettings(android: initializationSettingsAndroid);
 
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
+
   void scheduleDailyNotification() async {
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
     AndroidNotificationDetails(
@@ -204,7 +205,7 @@ class _MyAppState extends State<MyApp> {
           android: AndroidNotificationDetails(channel!.id, channel!.name,
               channelDescription: channel!.description,
               //      one that already exists in example app.
-              icon: 'ic_launcher',
+              //icon: 'ic_launcher',
               // largeIcon:
               //     const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
               color: Colors.blueAccent,

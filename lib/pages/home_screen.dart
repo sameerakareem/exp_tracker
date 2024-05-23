@@ -367,12 +367,12 @@ class HomePageState extends State<HomePage> {
                           children: [
                             Text(
                               expense.categoryName!,
-                              style: const TextStyle(fontSize: 12),
+                              style: const TextStyle(fontSize: 18),
                             ),
                             Spacer(),
                             Text(
                               expense.amount!.toString(),
-                              style: const TextStyle(fontSize: 12),
+                              style: const TextStyle(fontSize: 18),
                             ),
                           ],
                         ),
