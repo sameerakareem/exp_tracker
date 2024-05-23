@@ -245,6 +245,7 @@ class ExpenseListData extends State<ExpenseHistory> {
                 onPressed: () {
 
                   String qty = quantityController.text;
+                  model.amount = int.tryParse(qty);
                   Provider.of<ExpenseProvider>(context, listen: false)
                       .updateExpense(model);
                   Navigator.of(context).pop();
