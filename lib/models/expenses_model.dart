@@ -78,7 +78,6 @@ class ExpenseDao {
     );
 
     if (result.isNotEmpty && result.first['total'] != null) {
-      // Convert the total amount to double before returning
       return (result.first['total'] as int).toDouble();
     } else {
       return 0.0;
@@ -108,9 +107,7 @@ class ExpenseDao {
 
   Future<List<ExpenseModel>> getExpensesByDate(DateTime fromDate) async {
     final dbClient = await dbHelper.db;
-    String formattedDate = DateFormat('dd-MM-yyyy').format(fromDate); // Ensure date format is consistent with the stored format
-    print(formattedDate);
-
+    String formattedDate = DateFormat('dd-MM-yyyy').format(fromDate);
     String query = '''
     SELECT $categoryName, SUM($amount) as amount
     FROM $tableName
@@ -118,7 +115,6 @@ class ExpenseDao {
     GROUP BY $categoryName
     ORDER BY $categoryName
   ''';
-
     List<Map<String, dynamic>> result = await dbClient.rawQuery(query, [formattedDate]);
 
     return result.map((map) => ExpenseModel.fromJson(map)).toList();
@@ -126,13 +122,9 @@ class ExpenseDao {
 
   Future<List<ExpenseModel>> getExpenses() async {
     final dbClient = await dbHelper.db;
-
-
     String query = '''
   SELECT * FROM $tableName WHERE $type = 'Expense'
 ''';
-
-
     List<Map<String, dynamic>> result = await dbClient.rawQuery(query);
 
     return result.map((map) => ExpenseModel.fromJson(map)).toList();

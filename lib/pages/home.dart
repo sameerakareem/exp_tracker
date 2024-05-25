@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:expence_tracker/pages/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import '../utils/Toast.dart';
@@ -61,11 +58,9 @@ class HomeState extends State<Home> {
     return WillPopScope(
       onWillPop: () async {
         if (_currentIndex == 0) {
-          // Show exit confirmation dialog only on the Home screen
           await _showExitConfirmationDialog();
           return false;
         } else {
-          // Navigate to the previous screen if not on the Home screen
           return true;
         }
       },

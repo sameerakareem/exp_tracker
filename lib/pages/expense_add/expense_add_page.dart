@@ -1,4 +1,3 @@
-import 'package:expence_tracker/pages/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -11,14 +10,14 @@ import 'expense_add_bloc.dart';
 import 'expense_add_event.dart';
 import 'expense_add_state.dart';
 
-
-
 class ExpenseEntryPage extends StatelessWidget {
+  const ExpenseEntryPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ExpenseBloc(CategoryDao(), ExpenseDao())
-        ..add(LoadCategories()),
+      create: (context) =>
+          ExpenseBloc(CategoryDao(), ExpenseDao())..add(LoadCategories()),
       child: Scaffold(
         appBar: AppBar(
           title: Text('Expense Entry'),
@@ -36,6 +35,8 @@ class ExpenseEntryPage extends StatelessWidget {
 }
 
 class ExpenseEntryForm extends StatefulWidget {
+  const ExpenseEntryForm({super.key});
+
   @override
   _ExpenseEntryFormState createState() => _ExpenseEntryFormState();
 }
@@ -51,7 +52,7 @@ class _ExpenseEntryFormState extends State<ExpenseEntryForm> {
       listener: (context, state) {
         if (state.submissionSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Expense saved successfully')),
+            const SnackBar(content: Text('Expense saved successfully')),
           );
           Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) => Home(),
@@ -60,11 +61,9 @@ class _ExpenseEntryFormState extends State<ExpenseEntryForm> {
       },
       child: BlocBuilder<ExpenseBloc, ExpenseState>(
         builder: (context, state) {
-          // Set the initial selected category name
           if (state.categories.isNotEmpty) {
             selectedCategoryName = state.categories[0].name ?? '';
           }
-
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -72,43 +71,44 @@ class _ExpenseEntryFormState extends State<ExpenseEntryForm> {
                 children: [
                   Expanded(
                     child: ToggleButtons(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16.0),
-                          child: Center(child: Text('Income')),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16.0),
-                          child: Center(child: Text('Expense')),
-                        ),
-                      ],
                       isSelected: [
                         state.selectedType == 'Income',
                         state.selectedType == 'Expense'
                       ],
                       onPressed: (int index) {
                         context.read<ExpenseBloc>().add(
-                          UpdateType(index == 0 ? 'Income' : 'Expense'),
-                        );
+                              UpdateType(index == 0 ? 'Income' : 'Expense'),
+                            );
                       },
                       fillColor:
-                      Theme.of(context).primaryColor.withOpacity(0.2),
+                          Theme.of(context).primaryColor.withOpacity(0.2),
                       selectedColor: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(8.0),
                       constraints: BoxConstraints.expand(
                           width: MediaQuery.of(context).size.width / 2 - 32),
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 16.0),
+                          child: Center(child: Text('Income')),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 16.0),
+                          child: Center(child: Text('Expense')),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 17),
+              const SizedBox(height: 17),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Date: ${DateFormat('dd-MM-yyyy').format(state.selectedDate)}'),
+                  Text(
+                      'Date: ${DateFormat('dd-MM-yyyy').format(state.selectedDate)}'),
                   TextButton(
                     onPressed: () => _selectDate(context),
-                    child: Text('Choose Date'),
+                    child: const Text('Choose Date'),
                   ),
                 ],
               ),
@@ -132,7 +132,7 @@ class _ExpenseEntryFormState extends State<ExpenseEntryForm> {
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 children: [
                   Expanded(
@@ -151,7 +151,7 @@ class _ExpenseEntryFormState extends State<ExpenseEntryForm> {
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               DropdownButtonFormField<CategoryModel>(
                 value: state.categories.isNotEmpty ? state.categories[0] : null,
                 items: state.categories.map((CategoryModel category) {
@@ -165,7 +165,7 @@ class _ExpenseEntryFormState extends State<ExpenseEntryForm> {
                     selectedCategoryName = value.name;
                   }
                 },
-                decoration: InputDecoration(labelText: 'Category'),
+                decoration: const InputDecoration(labelText: 'Category'),
               ),
               SizedBox(height: 16),
               Padding(
@@ -187,12 +187,9 @@ class _ExpenseEntryFormState extends State<ExpenseEntryForm> {
                     ),
                     child: Text(
                       "Save",
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
                     ),
                   ),
                 ),
@@ -221,12 +218,12 @@ class _ExpenseEntryFormState extends State<ExpenseEntryForm> {
     final expenseModel = ExpenseModel(
       type: state.selectedType,
       date: DateFormat('dd-MM-yyyy').format(state.selectedDate),
-      amount: int.parse(amountController.text), // Convert the string to a double
+      amount:
+          int.parse(amountController.text),
       categoryName: selectedCategoryName,
       Note: noteController.text,
     );
 
     context.read<ExpenseBloc>().add(SubmitExpense(expenseModel));
   }
-
 }

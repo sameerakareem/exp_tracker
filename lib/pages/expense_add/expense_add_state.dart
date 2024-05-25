@@ -12,10 +12,10 @@ class ExpenseState extends Equatable {
   ExpenseState({
     this.categories = const [],
     this.selectedType = 'Expense',
-    DateTime? selectedDate,  // Make it nullable and set the default value in the initializer list
+    DateTime? selectedDate,
     this.isSubmitting = false,
     this.submissionSuccess = false,
-  }) : selectedDate = selectedDate ?? DateTime.now(); // Initialize selectedDate here
+  }) : selectedDate = selectedDate ?? DateTime.now();
 
   @override
   List<Object> get props => [

@@ -1,4 +1,3 @@
-// registration_state.dart
 
 import 'package:equatable/equatable.dart';
 
@@ -22,7 +21,7 @@ class RegistrationState extends Equatable {
   });
 
   factory RegistrationState.initial() {
-    return RegistrationState(
+    return const RegistrationState(
       name: '',
       password: '',
       phone: '',

@@ -10,8 +10,6 @@ import 'package:lottie/lottie.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 import '../models/expenses_model.dart';
-import '../models/profile_model.dart';
-import '../utils/app_controller.dart';
 import 'expense_add/expense_add_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -57,7 +55,6 @@ class HomePageState extends State<HomePage> {
     totalAmount =
         await expenseDao.getTotalAmountByTypeAndDate("Income", formattedDate);
     totalIncome = totalAmount;
-    print(totalAmount);
   }
 
   Future<void> getExpense(DateTime selectedDate) async {
@@ -68,13 +65,11 @@ class HomePageState extends State<HomePage> {
     setState(() {});
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Expense '),
+          title: const Text('Expense '),
           backgroundColor: Colors.blue,
         ),
         body: SingleChildScrollView(
@@ -106,13 +101,13 @@ class HomePageState extends State<HomePage> {
                           foregroundColor: Colors.black,
                           backgroundColor: selectedType == 'daily'
                               ? Colors
-                                  .green // Change the button color when selected
+                                  .green
                               : Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
                             side: BorderSide(
                               color: selectedType == 'daily'
-                                  ? Colors.black // Add a border when selected
+                                  ? Colors.black
                                   : Colors.blue,
                               width: 2.0,
                             ),
@@ -142,13 +137,13 @@ class HomePageState extends State<HomePage> {
                           foregroundColor: Colors.black,
                           backgroundColor: selectedType == 'weekly'
                               ? Colors
-                                  .green // Change the button color when selected
+                                  .green
                               : Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(7.0),
                             side: BorderSide(
                               color: selectedType == 'weekly'
-                                  ? Colors.black // Add a border when selected
+                                  ? Colors.black
                                   : Colors.blue,
                               width: 2.0,
                             ),
@@ -172,19 +167,18 @@ class HomePageState extends State<HomePage> {
                                 currentDateOnly.year, currentDateOnly.month, 1);
                             getExpense(fromDate);
                           });
-                          // Handle button press here
                         },
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.black,
                           backgroundColor: selectedType == 'monthly'
                               ? Colors
-                                  .green // Change the button color when selected
+                                  .green
                               : Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
                             side: BorderSide(
                               color: selectedType == 'monthly'
-                                  ? Colors.black // Add a border when selected
+                                  ? Colors.black
                                   : Colors.blue,
                               width: 2.0,
                             ),
@@ -212,13 +206,13 @@ class HomePageState extends State<HomePage> {
                           foregroundColor: Colors.black,
                           backgroundColor: selectedType == 'yearly'
                               ? Colors
-                                  .green // Change the button color when selected
+                                  .green
                               : Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
                             side: BorderSide(
                               color: selectedType == 'yearly'
-                                  ? Colors.black // Add a border when selected
+                                  ? Colors.black
                                   : Colors.blue,
                               width: 2.0,
                             ),
@@ -227,7 +221,6 @@ class HomePageState extends State<HomePage> {
                         child: const Text('Yearly'),
                       ),
                     ),
-                    // Add more buttons as needed
                   ],
                 ),
               ),
@@ -239,7 +232,7 @@ class HomePageState extends State<HomePage> {
                   : SingleChildScrollView(
                       child: SizedBox(
                         height: MediaQuery.of(context).size.height -
-                            100, // Adjust height as needed
+                            100,
                         child: _buildView_1(),
                       ),
                     ),
@@ -249,21 +242,18 @@ class HomePageState extends State<HomePage> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext context) => ExpenseEntryPage(),
+              builder: (BuildContext context) => const ExpenseEntryPage(),
             ));
           },
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat);
   }
 
-
   Widget _buildView_1() {
     getData();
     Map<String, double> dataMap = {};
-
     double totalExpense = 0;
-
     for (var expense in expenseModel) {
       if (expense.categoryName != null && expense.amount != null) {
         dataMap[expense.categoryName!] =
@@ -273,13 +263,11 @@ class HomePageState extends State<HomePage> {
     }
 
     double balanceAmount = totalAmount - totalExpense;
-    print(balanceAmount);
-
     dataMap['Balance'] = balanceAmount;
     bool exceedsTarget =
         balanceAmount < 0; // If balance is negative, it exceeds the target
 
-    double chartHeight = 200.0 + dataMap.length * 20.0; // Adjust as needed
+    double chartHeight = 200.0 + dataMap.length * 20.0;
     if (expenseModel != null && expenseModel!.isNotEmpty) {
       return SingleChildScrollView(
         child: Column(
@@ -289,16 +277,18 @@ class HomePageState extends State<HomePage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Text(
-                    "Income : " + totalAmount.toString(),
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    "Income : $totalAmount",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                 ),
                 Spacer(),
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0),
                   child: Text(
-                    "Expense : " + totalExpense.toString(),
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    "Expense : $totalExpense",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                 ),
               ],
@@ -315,7 +305,7 @@ class HomePageState extends State<HomePage> {
                   colorList: Colors.primaries,
                   initialAngleInDegree: 0,
                   ringStrokeWidth: 32,
-                  legendOptions: LegendOptions(
+                  legendOptions: const LegendOptions(
                     showLegendsInRow: true,
                     legendPosition: LegendPosition.bottom,
                     showLegends: true,
@@ -323,7 +313,7 @@ class HomePageState extends State<HomePage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  chartValuesOptions: ChartValuesOptions(
+                  chartValuesOptions: const ChartValuesOptions(
                     showChartValues: false,
                     showChartValuesOutside: false,
                     chartValueStyle: TextStyle(
@@ -336,7 +326,7 @@ class HomePageState extends State<HomePage> {
             ),
             Visibility(
               visible: exceedsTarget,
-              child: Text(
+              child: const Text(
                 "Expense exceeds the Income",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -350,11 +340,7 @@ class HomePageState extends State<HomePage> {
               itemCount: expenseModel.length,
               itemBuilder: (BuildContext context, int x) {
                 ExpenseModel expense = expenseModel[x];
-
                 return GestureDetector(
-                  // onLongPress: () async {
-                  //   await db.deleteFavouritesList(orderModel.orderId!);
-                  // },
                   child: GestureDetector(
                     onTap: () {},
                     child: Card(
@@ -362,14 +348,13 @@ class HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment
-                              .start, // Align the elements to the top
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
                               expense.categoryName!,
                               style: const TextStyle(fontSize: 18),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             Text(
                               expense.amount!.toString(),
                               style: const TextStyle(fontSize: 18),
@@ -392,8 +377,6 @@ class HomePageState extends State<HomePage> {
             child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            //crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(
                 height: 30,
@@ -401,7 +384,7 @@ class HomePageState extends State<HomePage> {
               Padding(
                 padding: EdgeInsets.only(left: 25.0),
                 child: Lottie.asset(
-                  'assets/images/animations.json', // Replace with the path to your Lottie animation file
+                  'assets/images/animations.json',
                   width: 250.0,
                   height: 100.0,
                   fit: BoxFit.cover,
@@ -414,7 +397,6 @@ class HomePageState extends State<HomePage> {
                 "No Expense Found!",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
-              // const Text("Your wishlist is currently empty!",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
               const SizedBox(
                 height: 10,
               ),

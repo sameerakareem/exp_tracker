@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 
-const String userPin = '12345';
-const String baseUrl = 'https://testing90.infobreez.net';
-const String domain = 'mobile/#_Login';
-const String clientId = 'PRABO1001';
-const String clientSecret = 'prabo@1001';
-const String terminalName = '1';
 
 const double defaultPadding = 8.0;
 const double defaultButtonSize = 42.0;
