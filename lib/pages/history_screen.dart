@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 class ExpenseProvider extends ChangeNotifier {
   List<ExpenseModel> _expenseModel = [];
   ExpenseDao _expenseDao = ExpenseDao();
-
   List<ExpenseModel> get expenseModel => _expenseModel;
 
   Future<void> fetchExpenses() async {
@@ -184,7 +183,6 @@ class ExpenseListData extends State<ExpenseHistory> {
 
   void showEditQuantityDialog(BuildContext context, ExpenseModel model) {
     TextEditingController quantityController = TextEditingController();
-
     showDialog(
       context: context,
       builder: (BuildContext context) {

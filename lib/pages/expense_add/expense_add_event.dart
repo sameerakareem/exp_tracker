@@ -14,7 +14,6 @@ class LoadCategories extends ExpenseEvent {}
 
 class SubmitExpense extends ExpenseEvent {
   final ExpenseModel expense;
-
   const SubmitExpense(this.expense);
 
   @override
@@ -23,7 +22,6 @@ class SubmitExpense extends ExpenseEvent {
 
 class UpdateType extends ExpenseEvent {
   final String type;
-
   const UpdateType(this.type);
 
   @override
@@ -32,7 +30,6 @@ class UpdateType extends ExpenseEvent {
 
 class UpdateDate extends ExpenseEvent {
   final DateTime date;
-
   const UpdateDate(this.date);
 
   @override

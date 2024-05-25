@@ -1,26 +1,17 @@
-
-
 import '../repository/DatabaseHelper.dart';
 
 class CategoryModel {
   int? categoryid;
   String? name;
 
-
-
-  CategoryModel(
-      {this.categoryid,
+  CategoryModel({this.categoryid,
         this.name,
-
       });
 
   toJson() {
     var map = <String, dynamic>{
       'categoryid': categoryid,
       'name': name,
-
-
-
     };
     return map;
   }
@@ -28,7 +19,6 @@ class CategoryModel {
   CategoryModel.fromJson(Map<String, dynamic> data) {
     categoryid = data['categoryid'];
     name = data['name'];
-
   }
 }
 
@@ -37,7 +27,6 @@ class CategoryDao {
   static const tableName = 'Category';
   static const categoryid = 'categoryid';
   static const name = 'name';
-
   late DatabaseHelper dbHelper;
 
   CategoryDao() {

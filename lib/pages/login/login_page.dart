@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../models/profile_model.dart';
 import '../../utils/app_controller.dart';
 import '../../utils/constants.dart';

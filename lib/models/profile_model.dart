@@ -47,7 +47,6 @@ class UserDetailsDao {
   static const phone = 'phone';
   static const password = 'password';
   static const email = 'email';
-
   late DatabaseHelper dbHelper;
 
   UserDetailsDao() {

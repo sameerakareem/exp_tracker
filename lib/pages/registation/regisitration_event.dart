@@ -10,7 +10,6 @@ abstract class RegistrationEvent extends Equatable {
 
 class NameChanged extends RegistrationEvent {
   final String name;
-
   const NameChanged(this.name);
 
   @override
@@ -19,7 +18,6 @@ class NameChanged extends RegistrationEvent {
 
 class PasswordChanged extends RegistrationEvent {
   final String password;
-
   const PasswordChanged(this.password);
 
   @override
@@ -37,7 +35,6 @@ class PhoneChanged extends RegistrationEvent {
 
 class EmailChanged extends RegistrationEvent {
   final String email;
-
   const EmailChanged(this.email);
 
   @override

@@ -31,7 +31,6 @@ class RegistrationForm extends StatelessWidget {
               SnackBar(content: Text('Registration Successful')),
             );
             Navigator.of(context).pop();
-
           } else if (state.isFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('Registration Failed')),
@@ -66,7 +65,6 @@ class RegistrationForm extends StatelessWidget {
                 child: buildWidget(context),
               ),
               const SizedBox(height: 10),
-
               buttonSave(context),
               const Padding(padding: EdgeInsets.only(top: 60.0)),
             ],
@@ -266,9 +264,7 @@ class RegistrationForm extends StatelessWidget {
           height: defaultButtonSize,
           width: double.infinity,
           child: FilledButton(
-            onPressed: state.isSubmitting
-                ? null
-                : () {
+            onPressed: state.isSubmitting ? null : () {
               if (_formKey.currentState!.validate()) {
                 context.read<RegistrationBloc>().add(FormSubmitted());
               }

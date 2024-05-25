@@ -13,7 +13,7 @@ import '../models/expenses_model.dart';
 import 'expense_add/expense_add_page.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({
+  const HomePage({
     super.key,
   });
 
@@ -52,8 +52,7 @@ class HomePageState extends State<HomePage> {
 
   Future<void> getData() async {
     categoryList = await categoryDao.getAllCategories();
-    totalAmount =
-        await expenseDao.getTotalAmountByTypeAndDate("Income", formattedDate);
+    totalAmount = await expenseDao.getTotalAmountByTypeAndDate("Income", formattedDate);
     totalIncome = totalAmount;
   }
 
@@ -89,26 +88,18 @@ class HomePageState extends State<HomePage> {
                           setState(() {
                             selectedType = 'daily';
                             DateTime currentDate = DateTime.now();
-                            DateTime currentDateOnly = DateTime(
-                                currentDate.year,
-                                currentDate.month,
-                                currentDate.day);
+                            DateTime currentDateOnly = DateTime(currentDate.year, currentDate.month, currentDate.day);
                             fromDate = currentDateOnly;
                             getExpense(fromDate);
                           });
                         },
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.black,
-                          backgroundColor: selectedType == 'daily'
-                              ? Colors
-                                  .green
-                              : Colors.white,
+                          backgroundColor: selectedType == 'daily' ? Colors.green : Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
                             side: BorderSide(
-                              color: selectedType == 'daily'
-                                  ? Colors.black
-                                  : Colors.blue,
+                              color: selectedType == 'daily' ? Colors.black : Colors.blue,
                               width: 2.0,
                             ),
                           ),
@@ -123,28 +114,19 @@ class HomePageState extends State<HomePage> {
                           setState(() {
                             selectedType = 'weekly';
                             DateTime currentDate = DateTime.now();
-                            DateTime currentDateOnly = DateTime(
-                                currentDate.year,
-                                currentDate.month,
-                                currentDate.day);
-                            DateTime monday = currentDateOnly.subtract(
-                                Duration(days: currentDate.weekday - 1));
+                            DateTime currentDateOnly = DateTime(currentDate.year, currentDate.month, currentDate.day);
+                            DateTime monday = currentDateOnly.subtract(Duration(days: currentDate.weekday - 1));
                             fromDate = monday;
                             getExpense(fromDate);
                           });
                         },
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.black,
-                          backgroundColor: selectedType == 'weekly'
-                              ? Colors
-                                  .green
-                              : Colors.white,
+                          backgroundColor: selectedType == 'weekly' ? Colors.green : Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(7.0),
                             side: BorderSide(
-                              color: selectedType == 'weekly'
-                                  ? Colors.black
-                                  : Colors.blue,
+                              color: selectedType == 'weekly' ? Colors.black : Colors.blue,
                               width: 2.0,
                             ),
                           ),
@@ -159,27 +141,18 @@ class HomePageState extends State<HomePage> {
                           setState(() {
                             selectedType = 'monthly';
                             DateTime currentDate = DateTime.now();
-                            DateTime currentDateOnly = DateTime(
-                                currentDate.year,
-                                currentDate.month,
-                                currentDate.day);
-                            fromDate = DateTime(
-                                currentDateOnly.year, currentDateOnly.month, 1);
+                            DateTime currentDateOnly = DateTime(currentDate.year, currentDate.month, currentDate.day);
+                            fromDate = DateTime(currentDateOnly.year, currentDateOnly.month, 1);
                             getExpense(fromDate);
                           });
                         },
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.black,
-                          backgroundColor: selectedType == 'monthly'
-                              ? Colors
-                                  .green
-                              : Colors.white,
+                          backgroundColor: selectedType == 'monthly' ? Colors.green : Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
                             side: BorderSide(
-                              color: selectedType == 'monthly'
-                                  ? Colors.black
-                                  : Colors.blue,
+                              color: selectedType == 'monthly' ? Colors.black : Colors.blue,
                               width: 2.0,
                             ),
                           ),
@@ -194,26 +167,18 @@ class HomePageState extends State<HomePage> {
                           setState(() {
                             selectedType = 'yearly';
                             DateTime currentDate = DateTime.now();
-                            DateTime currentDateOnly = DateTime(
-                                currentDate.year,
-                                currentDate.month,
-                                currentDate.day);
+                            DateTime currentDateOnly = DateTime(currentDate.year, currentDate.month, currentDate.day);
                             fromDate = DateTime(currentDateOnly.year, 1, 1);
                             getExpense(fromDate);
                           });
                         },
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.black,
-                          backgroundColor: selectedType == 'yearly'
-                              ? Colors
-                                  .green
-                              : Colors.white,
+                          backgroundColor: selectedType == 'yearly' ? Colors.green : Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
                             side: BorderSide(
-                              color: selectedType == 'yearly'
-                                  ? Colors.black
-                                  : Colors.blue,
+                              color: selectedType == 'yearly' ? Colors.black : Colors.blue,
                               width: 2.0,
                             ),
                           ),
@@ -231,8 +196,7 @@ class HomePageState extends State<HomePage> {
                   ? const Center(child: CircularProgressIndicator())
                   : SingleChildScrollView(
                       child: SizedBox(
-                        height: MediaQuery.of(context).size.height -
-                            100,
+                        height: MediaQuery.of(context).size.height - 100,
                         child: _buildView_1(),
                       ),
                     ),
@@ -261,11 +225,9 @@ class HomePageState extends State<HomePage> {
         totalExpense += expense.amount!.toDouble();
       }
     }
-
     double balanceAmount = totalAmount - totalExpense;
     dataMap['Balance'] = balanceAmount;
-    bool exceedsTarget =
-        balanceAmount < 0; // If balance is negative, it exceeds the target
+    bool exceedsTarget = balanceAmount < 0; // If balance is negative, it exceeds the target
 
     double chartHeight = 200.0 + dataMap.length * 20.0;
     if (expenseModel != null && expenseModel!.isNotEmpty) {
@@ -295,7 +257,7 @@ class HomePageState extends State<HomePage> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
+              child: SizedBox(
                 height: chartHeight,
                 child: PieChart(
                   dataMap: dataMap,
