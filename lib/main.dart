@@ -155,7 +155,6 @@ class _MyAppState extends State<MyApp> {
       showFlutterNotification(message);
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-
     });
 
   }
@@ -185,7 +184,6 @@ class _MyAppState extends State<MyApp> {
   }
   Future<void> getPermission() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
-
     NotificationSettings settings = await messaging.requestPermission(
       alert: true,
       announcement: false,
