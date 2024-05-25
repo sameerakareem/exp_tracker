@@ -1,4 +1,3 @@
-// registration_bloc.dart
 
 import 'package:expence_tracker/pages/registation/regisitration_event.dart';
 import 'package:expence_tracker/pages/registation/regisitration_state.dart';
@@ -28,7 +27,6 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
 
     on<FormSubmitted>((event, emit) async {
       emit(state.copyWith(isSubmitting: true, isSuccess: false, isFailure: false));
-
       try {
         ProfileModel profile = ProfileModel(
           userName: state.name,
@@ -36,9 +34,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
           phone: state.phone,
           email: state.email,
         );
-
         await profileDao.insert(profile);
-
         emit(state.copyWith(isSubmitting: false, isSuccess: true, isFailure: false));
       } catch (error) {
         emit(state.copyWith(isSubmitting: false, isSuccess: false, isFailure: true));

@@ -1,14 +1,12 @@
-import 'dart:io';
 
-import 'package:bloc/bloc.dart';
 import 'package:expence_tracker/pages/history_screen.dart';
 import 'package:expence_tracker/pages/login/login_bloc.dart';
 import 'package:expence_tracker/pages/login/login_page.dart';
 import 'package:expence_tracker/pages/registation/regisitration_bloc.dart';
 import 'package:expence_tracker/pages/registation/regisitration_screen.dart';
 import 'package:expence_tracker/pages/splash_page.dart';
-import 'package:expence_tracker/repository/preference_repository.dart';
 import 'package:expence_tracker/themes/theme_provider.dart';
+import 'package:expence_tracker/utils/AppRoutes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -16,34 +14,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
-import 'package:sqflite/sqflite.dart';
-
-import 'app/app.dart';
-import 'app_bloc_observer.dart';
-import 'config/app_appearance_cubit.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import 'config/routes.dart';
-import 'models/category_model.dart';
 import 'models/profile_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await PreferencesRepository().initialize();
-  final preferencesRepository = PreferencesRepository();
   await Firebase.initializeApp();
-
-  // if (Platform.isWindows || Platform.isLinux) {
-  // Initialize FFI
-  // }
-  // Change the default factory. On iOS/Android, if not using `sqlite_flutter_lib` you can forget
-  // this step, it will use the sqlite version available on the system.
-  // initialize App Appearance from Preference
-  AppAppearanceState appAppearanceState =
-  AppAppearanceCubit.loadAppearance(preferencesRepository);
   tz.initializeTimeZones();
 
   runApp(
@@ -53,7 +31,6 @@ void main() async {
         ChangeNotifierProvider<ExpenseProvider>(
           create: (_) => ExpenseProvider(),
         ),
-       // ChangeNotifierProvider(create: (context) => CartProvider())
       ],
       child: MyApp(),
     ),
@@ -83,10 +60,8 @@ class _MyAppState extends State<MyApp> {
   void initializeLocalNotifications() {
     const AndroidInitializationSettings initializationSettingsAndroid =
     AndroidInitializationSettings('@mipmap/ic_launcher');
-
     final InitializationSettings initializationSettings =
     InitializationSettings(android: initializationSettingsAndroid);
-
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
@@ -124,7 +99,6 @@ class _MyAppState extends State<MyApp> {
     return scheduledDate;
   }
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
 
@@ -142,7 +116,6 @@ class _MyAppState extends State<MyApp> {
       AppRoutes.splash: (context) => SplashPage(),
       AppRoutes.login: (context) => _buildLoginBloc(context),
       AppRoutes.register: (context) => _buildRegister(context),
-      // Register other routes similarly
     };
   }
 
@@ -178,12 +151,9 @@ class _MyAppState extends State<MyApp> {
         .resolvePlatformSpecificImplementation<
         AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel!);
-
-
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       showFlutterNotification(message);
     });
-
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
 
     });
@@ -204,10 +174,6 @@ class _MyAppState extends State<MyApp> {
         NotificationDetails(
           android: AndroidNotificationDetails(channel!.id, channel!.name,
               channelDescription: channel!.description,
-              //      one that already exists in example app.
-              //icon: 'ic_launcher',
-              // largeIcon:
-              //     const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
               color: Colors.blueAccent,
               enableVibration: true,
               playSound: true,
@@ -229,8 +195,6 @@ class _MyAppState extends State<MyApp> {
       provisional: false,
       sound: true,
     );
-
-    print('User granted permission: ${settings.authorizationStatus}');
   }
 
 

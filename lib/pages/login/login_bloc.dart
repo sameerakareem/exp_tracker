@@ -16,12 +16,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(LoginLoading());
 
     try {
-      // Simulate a delay for the login process
       await Future.delayed(const Duration(seconds: 2));
-
       ProfileModel? selectedProfile =
       await userDetailsDao.getUserByCredentials(event.username, event.password);
-
       if (selectedProfile != null) {
         emit(LoginSuccess());
       } else {

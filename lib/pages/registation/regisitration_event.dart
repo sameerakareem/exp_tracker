@@ -1,4 +1,3 @@
-// registration_event.dart
 
 import 'package:equatable/equatable.dart';
 

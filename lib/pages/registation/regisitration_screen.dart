@@ -1,4 +1,3 @@
-// registration_screen.dart
 
 import 'package:expence_tracker/pages/registation/regisitration_bloc.dart';
 import 'package:expence_tracker/pages/registation/regisitration_event.dart';
@@ -42,11 +41,9 @@ class RegistrationForm extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              //SizedBox(height: 80),
               Container(
                 decoration: const BoxDecoration(
                   color: Colors.blue,
-                  //   color: Colors.deepOrange, // Set color for the custom container
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(57.0), // Set top left radius
                     bottomRight: Radius.circular(57.0), // Set top right radius
@@ -60,7 +57,6 @@ class RegistrationForm extends StatelessWidget {
                     image: AssetImage("assets/images/illustration.jpeg"),
                     height: 250,
                     width: 350,
-                    //  color: ColorConst.white,
                   ),
                 ),
               ),
@@ -103,20 +99,20 @@ class RegistrationForm extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10.0), // Make the border circular
+                borderRadius: BorderRadius.circular(10.0),
                 boxShadow: const [
                   BoxShadow(
                     color: Colors.black26,
                     blurRadius: 6,
-                    offset: Offset(0, 2), // changes position of shadow
+                    offset: Offset(0, 2),
                   ),
                 ],
               ),
               child: TextFormField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0), // Circular border
-                    borderSide: BorderSide.none, // Remove the default border
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide.none,
                   ),
                   contentPadding: const EdgeInsets.all(8),
                   labelText: 'User Name',
@@ -143,12 +139,12 @@ class RegistrationForm extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10.0), // Make the border circular
+                borderRadius: BorderRadius.circular(10.0),
                 boxShadow: const [
                   BoxShadow(
                     color: Colors.black26,
                     blurRadius: 6,
-                    offset: Offset(0, 2), // changes position of shadow
+                    offset: Offset(0, 2),
                   ),
                 ],
               ),
@@ -157,12 +153,12 @@ class RegistrationForm extends StatelessWidget {
                   labelText: 'Password',
                   hintText: 'Enter Password',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0), // Circular border
-                    borderSide: BorderSide.none, // Remove the default border
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide.none,
                   ),
                   contentPadding: const EdgeInsets.all(8),
                 ),
-                obscureText: true, // Ensure the password field hides input
+                obscureText: true,
                 onChanged: (value) => context.read<RegistrationBloc>().add(PasswordChanged(value)),
                 validator: (value) => value == null || value.isEmpty ? 'Please enter your password' : null,
               ),
@@ -183,12 +179,12 @@ class RegistrationForm extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10.0), // Make the border circular
+                borderRadius: BorderRadius.circular(10.0),
                 boxShadow: const [
                   BoxShadow(
                     color: Colors.black26,
                     blurRadius: 6,
-                    offset: Offset(0, 2), // changes position of shadow
+                    offset: Offset(0, 2),
                   ),
                 ],
               ),
@@ -197,8 +193,8 @@ class RegistrationForm extends StatelessWidget {
                   labelText: 'Phone Number',
                   hintText: 'Enter Phone Number',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0), // Circular border
-                    borderSide: BorderSide.none, // Remove the default border
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide.none,
                   ),
                   contentPadding: const EdgeInsets.all(8),
                 ),
@@ -231,12 +227,12 @@ class RegistrationForm extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10.0), // Make the border circular
+                borderRadius: BorderRadius.circular(10.0),
                 boxShadow: const [
                   BoxShadow(
                     color: Colors.black26,
                     blurRadius: 6,
-                    offset: Offset(0, 2), // changes position of shadow
+                    offset: Offset(0, 2),
                   ),
                 ],
               ),
@@ -245,8 +241,8 @@ class RegistrationForm extends StatelessWidget {
                   labelText: 'Email',
                   hintText: 'Enter Email',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0), // Circular border
-                    borderSide: BorderSide.none, // Remove the default border
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide.none,
                   ),
                   contentPadding: const EdgeInsets.all(8),
                 ),
@@ -268,7 +264,7 @@ class RegistrationForm extends StatelessWidget {
         return Container(
           margin: const EdgeInsets.only(left: 40, right: 40),
           height: defaultButtonSize,
-          width: double.infinity, // Set the width to double.infinity to take full width
+          width: double.infinity,
           child: FilledButton(
             onPressed: state.isSubmitting
                 ? null
@@ -282,11 +278,10 @@ class RegistrationForm extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               backgroundColor: Colors.blue,
-
               padding: const EdgeInsets.all(8),
             ),
             child: state.isSubmitting
-                ? CircularProgressIndicator()
+                ? const CircularProgressIndicator()
                 : Text(
               "REGISTER",
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
